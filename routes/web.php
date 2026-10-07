@@ -6,6 +6,7 @@ use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\RecuperarPasswordController;
 use App\Http\Controllers\ConsultarApisController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InicioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,6 @@ Route::post('password/reset', [RecuperarPasswordController::class, 'resetear'])-
 
 // Home / Dashboard
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Limpiar Cache
+Route::get('/limpiar', [InicioController::class, 'limpiar'])->name('limpiar');

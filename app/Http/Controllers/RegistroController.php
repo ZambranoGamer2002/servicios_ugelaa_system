@@ -249,7 +249,7 @@ class RegistroController extends Controller
 
         // Token no encontrado
         if (!$registro) {
-            return view('auth.verificacion-error', [
+            return view('auth.verificacion.error', [
                 'titulo'  => 'Enlace Inválido',
                 'mensaje' => 'El enlace de verificación no es válido o ya fue utilizado.',
             ]);
@@ -259,7 +259,7 @@ class RegistroController extends Controller
         if ($registro->estaExpirado()) {
             $registro->delete();
 
-            return view('auth.verificacion-error', [
+            return view('auth.verificacion.error', [
                 'titulo'  => 'Enlace Expirado',
                 'mensaje' => 'El enlace de verificación ha expirado. Tiene un máximo de 10 minutos para verificar su registro. Por favor, regístrese nuevamente.',
             ]);
@@ -285,10 +285,10 @@ class RegistroController extends Controller
                 ]);
 
                 $registro->update(['verificado' => true]);
-                return view('auth.verificacion-exitosa');
+                return view('auth.verificacion.exitosa');
             } else {
                 $registro->delete();
-                return view('auth.verificacion-error', [
+                return view('auth.verificacion.error', [
                     'titulo'  => 'DNI Ya Registrado',
                     'mensaje' => 'Este DNI ya se encuentra registrado en el sistema.',
                 ]);
@@ -298,7 +298,7 @@ class RegistroController extends Controller
         $existeNickname = Usuario::where('nickname', $registro->nickname)->first();
         if ($existeNickname && (!app()->environment('local') || $existeNickname->dni !== $registro->dni)) {
             $registro->delete();
-            return view('auth.verificacion-error', [
+            return view('auth.verificacion.error', [
                 'titulo'  => 'Usuario Ya Existe',
                 'mensaje' => 'El nombre de usuario elegido ya está en uso. Regístrese nuevamente con otro nombre de usuario.',
             ]);
@@ -320,7 +320,7 @@ class RegistroController extends Controller
         ]);
 
         // Asignar rol por defecto
-        $usuario->assignRole('Usuario');
+        $usuario->assignRole('NORMAL');
 
         // Evitar que el mutator de password vuelva a hashear
         // La contraseña ya viene hasheada desde registro_pendiente
@@ -331,6 +331,6 @@ class RegistroController extends Controller
         // Marcar registro como verificado
         $registro->update(['verificado' => true]);
 
-        return view('auth.verificacion-exitosa');
+        return view('auth.verificacion.exitosa');
     }
 }

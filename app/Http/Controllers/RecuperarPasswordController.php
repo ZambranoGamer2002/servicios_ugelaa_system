@@ -18,7 +18,7 @@ class RecuperarPasswordController extends Controller
      */
     public function index()
     {
-        return view('auth.recuperar-password');
+        return view('auth.password.recuperar');
     }
 
     /**
@@ -98,7 +98,7 @@ class RecuperarPasswordController extends Controller
             ->first();
 
         if (!$reset) {
-            return view('auth.verificacion-error', [
+            return view('auth.verificacion.error', [
                 'titulo'  => 'Enlace Inválido',
                 'mensaje' => 'El enlace de recuperación no es válido o ya fue utilizado.',
             ]);
@@ -107,13 +107,13 @@ class RecuperarPasswordController extends Controller
         if ($reset->estaExpirado()) {
             $reset->update(['usado' => true]);
 
-            return view('auth.verificacion-error', [
+            return view('auth.verificacion.error', [
                 'titulo'  => 'Enlace Expirado',
                 'mensaje' => 'El enlace de recuperación ha expirado. Solicite uno nuevo desde la pantalla de inicio de sesión.',
             ]);
         }
 
-        return view('auth.reset-password', [
+        return view('auth.password.resetear', [
             'token'  => $token,
             'correo' => $reset->correo,
         ]);
