@@ -1,12 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegistroController;
-use App\Http\Controllers\RecuperarPasswordController;
-use App\Http\Controllers\ConsultarApisController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InicioController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegistroController;
+use App\Http\Controllers\Auth\RecuperarPasswordController;
+use App\Http\Controllers\Api\ConsultarApisController;
+use App\Http\Controllers\Inicio\InicioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +43,7 @@ Route::post('reset-password', [RecuperarPasswordController::class, 'resetear'])-
 Route::post('password/reset', [RecuperarPasswordController::class, 'resetear'])->name('password.update');
 
 // Home / Dashboard
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [InicioController::class, 'index'])->name('home');
 
 // Limpiar Cache
 Route::get('/limpiar', [InicioController::class, 'limpiar'])->name('limpiar');
