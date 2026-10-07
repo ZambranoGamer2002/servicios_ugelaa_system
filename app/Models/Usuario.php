@@ -25,6 +25,7 @@ class Usuario extends Authenticatable
         'nickname',
         'password',
         'estado',
+        'tipoUsuario_id',
     ];
 
     protected $hidden = [
@@ -37,7 +38,10 @@ class Usuario extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // Removed tipoUsuario relation as we now use Spatie HasRoles
+    public function tipoUsuario()
+    {
+        return $this->belongsTo(TipoUsuario::class, 'tipoUsuario_id');
+    }
 
     public function setPasswordAttribute($value)
     {

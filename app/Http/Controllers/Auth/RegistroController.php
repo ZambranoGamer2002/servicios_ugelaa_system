@@ -320,6 +320,7 @@ class RegistroController extends Controller
             'dni'             => $registro->dni,
             'email_verified_at' => now(),
             'estado'          => 1,
+            'tipoUsuario_id'  => 6,
         ]);
 
         // Asignar rol por defecto
